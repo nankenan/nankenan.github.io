@@ -1,11 +1,11 @@
 # Site settings
-title: Candycat Blog
-SEOTitle: Candycat的博客 | Candycat Blog
+title: Nankenan Blog
+SEOTitle: Nankenan的博客 | Nankenan Blog
 header-img: img/home-bg.jpg
-email: lelefeng1992@gmail.com
-description: "喜欢和好奇用计算机产生的一切画面"
+email: zhanjif@126.com
+description: "喜欢初春绿萌，盛夏林荫，秋天叶落，冬日雪盛"
 keyword: ""
-url: "candycat1992.github.io"              # your host, for absolute URL
+url: "nankenan.github.io"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 timezone: CN
 
@@ -67,7 +67,7 @@ ba_track_id: 207a182a0a79e8a76bfd02381045166f
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "一只喜欢计算机图形的程序媛，爱好写shader、写博客，喜欢用计算机来绘制各种五彩缤纷的画面。"
+sidebar-about-description: "床前明月光，疑是地上霜，不是郭德纲，我叫南柯南"
 sidebar-avatar: /img/avatar-girl.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 

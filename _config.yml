@@ -15,7 +15,7 @@ gems: [jekyll-paginate]
 # SNS settings
 RSS: false
 
-zhihu_username:     南柯南
+zhihu_username:     nan-ke-nan
 github_username:    nankenan
 douban_username:    
 #weibo_username:     2776591135
@@ -53,12 +53,12 @@ duoshuo_username: nankenan
 
 # LiveRe setttings
 # You can get your uid from https://livere.com/insight/myCode (General web site)
-livere_uid: MTAyMC8yODg4Mi81NDUy
+#livere_uid: MTAyMC8yODg4Mi81NDUy
 
 
 # Analytics settings
 # Baidu Analytics
-ba_track_id: 207a182a0a79e8a76bfd02381045166f
+#ba_track_id: 207a182a0a79e8a76bfd02381045166f
 # Google Analytics
 #ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
 #ga_domain: auto

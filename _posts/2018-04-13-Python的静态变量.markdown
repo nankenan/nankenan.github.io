@@ -104,6 +104,121 @@ if __name__=="__main__":
 实例方法就是默认方法，不加修饰符
 
 ```
+layout:     post
+title:      "关于Python的静态变量和函数"
+subtitle:   "初学Python"
+date:       2018-04-13 17:42:00
+author:     "Nankenan"
+header-img: "img/home-bg.jpg"
+tags:
+    - Python
+    
+python中并没有static关键字
+文章摘抄于
+https://www.cnblogs.com/turtle-fly/p/3280610.html
+https://www.cnblogs.com/giserliu/p/5785082.html
+并有微小改动
+##静态变量的概念
+​```
+class task_queue:
+    queue = []
+
+    def append(self, obj):
+        self.queue.append(obj)
+
+    def print_queue(self):
+        print(self.queue)
+
+
+if __name__ == "__main__":
+    a = task_queue()
+    b = task_queue()
+    c = task_queue()
+
+    a.append('sword.zhang')
+
+    a.print_queue()
+    b.print_queue()
+    c.print_queue()
+    print(task_queue.queue)
+​```
+
+我们期望在队列 a 中插入 sword.zhang，结果 b 和 c 也被同时操作了，这并不是我们所期望的
+
+​```
+['sword.zhang']
+['sword.zhang']
+['sword.zhang']
+​```
+
+这种行为很像静态变量的行为，可是 Python 中并没有 static 关键字，这是怎么回事？
+Java 和 C++ 中的 static 关键字有多种用法,其中，如果static去修饰一个类的属性，那么该属性就不是被各个对象所持有，而是一片公共的区域
+
+Python 中并没有访问限定符 static，这种机制在 Python 中被称为 **类的属性** 和 **对象的属性**
+第一段代码中的 queue 在类的声明中被初始化为空，这是 类的属性
+a.append() 之后，queue 中添加了 'tc_1'，而 b 和 c 获取的 queue 依然是公共的 类的属性
+如何让这个属性变为对象自己的呢？改动如下：
+
+​```
+class task_queue:
+
+    def __init__(self):
+        self.queue=[]
+
+    def append(self, obj):
+        self.queue.append(obj)
+
+    def print_queue(self):
+        print(self.queue)
+
+
+if __name__ == "__main__":
+    a = task_queue()
+    b = task_queue()
+    c = task_queue()
+
+    a.append('sword.zhang')
+
+    a.print_queue()
+    b.print_queue()
+    c.print_queue()
+​```
+
+结果为
+​```
+['sword.zhang']
+[]
+[]
+​```
+
+
+另外一个例子
+​```
+class a():  
+    num = 0  
+
+if __name__=="__main__":
+    
+    obj1 = a()  
+    obj2 = a()   
+    print obj1.num, obj2.num, a.num   
+          
+    obj1.num += 1  
+    print obj1.num, obj2.num, a.num     
+      
+    a.num += 2  
+    print obj1.num, obj2.num, a.num
+
+​```
+
+##静态方法的概念
+静态方法实际上就是普通函数，定义形式是在def行前加修饰符@staticmethod，只是由于某种原因需要定义在类里面。静态方法的参数可以根据需要定义，不需要特殊的self参数。可以通过类名或者值为实例对象的变量，已属性引用的方式调用静态方法
+
+类方法定义形式是在def行前加修饰符@classmethod，这种方法必须有一个表示其调用类的参数，一般用cls作为参数名，还可以有任意多个其他参数。类方法也是类对象的属性，可以以属性访问的形式调用。在类方法执行时，调用它的类将自动约束到方法的cls参数，可以通过这个参数访问该类的其他属性。通常用类方法实现与本类的所有对象有关的操作。
+
+实例方法就是默认方法，不加修饰符
+
+​```
 ##coding:utf-8
 ##coding:utf-8
 class TestClassMethod(object):
@@ -136,6 +251,78 @@ a.test1()
 a.test2()
 a.test3()
 TestClassMethod.test3()
+​```
+
+结果为：
+​```
+test1
+<__main__.TestClassMethod object at 0x000000000405DB38>
+test2
+<class '__main__.TestClassMethod'>
+method hoho
+test3
+method hoho
+test3
+method hoho
+​```
+
+实例方法隐含的参数为类实例，而类方法隐含的参数为类本身。
+静态方法无隐含参数，主要为了类实例也可以直接调用静态方法。
+所以逻辑上类方法应当只被类调用，实例方法实例调用，静态方法两者都能调用。
+
+ 实例方法，类方法，静态方法都可以通过实例或者类调用，只不过实例方法通过类调用时需要传递实例的引用（python 3可以传递任意对象，其他版本会报错）
+
+ 三种方法从不同层次上来对方法进行了描述：实例方法针对的是实例，类方法针对的是类，静态方法加了个不用的self参数,他们都可以继承和重新定义。
+
+ 实例方法就是第一个参数是self，所谓类方法就是第一个参数是class，而静态方法不需要额外的参数，所以必须区分。
+
+​```
+class Foo(object):
+    def test(self):#定义了实例方法
+        print("object")
+    @classmethod
+    def test2(clss):#定义了类方法
+        print("class")
+    @staticmethod
+    def test3():#定义了静态方法
+        print("static")
+
+class Foo2(Foo):
+    @classmethod
+    def test2(self):
+        print(self)
+        print("foo2 object")
+
+    @staticmethod
+    def test3():
+        print("foo2 static")
+
+
+
+ff = Foo()
+#通过实例调用
+ff.test()
+#直接通过类的方式调用，但是需要自己传递实例引用
+Foo.test(ff)
+Foo.test3()
+
+f2 = Foo2()
+f2.test2()
+f2.test3()
+Foo2.test3()
+
+​```
+
+结果为：
+​```
+object
+object
+static
+<class '__main__.Foo2'>
+foo2 object
+foo2 static
+foo2 static
+​```
 ```
 
 结果为：

@@ -4,7 +4,7 @@ title:      "关于Python的静态变量和函数"
 subtitle:   "初学Python"
 date:       2018-04-13 17:42:00
 author:     "Nankenan"
-header-img: "img/hoe-bg.jpg"
+header-img: "img/home-bg.jpg"
 tags:
     - Python
 ---

@@ -1,0 +1,234 @@
+---
+layout:     post
+title:      "Python模块和包的相关知识"
+subtitle:   "初学Python"
+date:       2018-04-18 16:44:00
+author:     "Nankenan"
+header-img: "img/home-bg.jpg"
+tags:
+    - Python
+---
+
+# from 和 import 的区别
+
+import : 引入模块
+
+from Module  import Other : 引入模块中的类、函数或者变量
+
+
+
+
+
+# 模块介绍
+
+模块：用来从逻辑上组织Python代码（变量，函数，类，逻辑：实现一个功能），本质就是.py结尾的Python文件（文件名：test.py，对应的模块名：test）
+
+包：用来从逻辑上组织模块的，本质就是一个目录（必须带有一个__init__.py文件）
+
+模块分类：
+　　内置模块
+　　自定义模块
+　　第三方模块（需要安装才能使用）
+
+注意：Python中的模块，在其他语言中叫做类库。
+
+
+
+# import如何工作
+
+导入其实是运行时的运算，程序第一次导入指定文件时，会执行三个步骤：
+　　a、找到模块文件
+　　b、编译成位码（需要时）
+　　c、执行模块的代码来创建其所定义的对象
+这三个步骤只在程序执行时，模块第一次导入时才会进行。在这之后，导入相同模块时，会跳过这三个步骤，而只提取内存中已加载的模块对象。python把载入的模块存储到一个名为sys.modules的表中（list(sys.modules.keys())），并在一次导入操作的开始检查该表。如果模块不存在，将会启动一个三个步骤的过程。
+
+
+
+ a、搜索
+
+首先，Python必须查找到import语句所引用的模块文件。事实上，路径和后缀是刻意省略掉的，因为Python使用了标准模块搜索路径来找出import语句所对应的模块文件。
+
+Python的模块查找路径：
+
+```python
+import sys
+
+for item in sys.path:
+  print(item)
+```
+
+
+
+Python模块的查找顺序：
+
+注意：sys.path返回的结果是一个列表，当我们需要添加路径时，只需要向列表中追加即可。
+
+```
+D:\PythonProject\PythonStudy
+D:\PythonProject\PythonStudy
+C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\python36.zip
+C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\DLLs
+C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\lib
+C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64
+C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\lib\site-packages
+```
+
+
+
+修改Python的模块查找路径：
+
+```python
+#示例：__file__表示当前文件
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+```
+
+
+
+模块文件选择：
+
+```
+文件名的后缀（例如，.py）是刻意从``import``语句中省略的。Python会选择在搜索路径中第一个符合导入文件名的文件。例如，``import b形式的``import``叙述可能会加载。
+
+ 
+
+源代码文件b.py
+
+字节码文件b.pyc
+
+目录b，包导入
+
+编译扩展模块（通常用C或C++编写），导入时使用动态连接（例如，Linux的b.so以及windows的b.dll）
+
+用C编写的编译好的内置模块，并通过静态连接至Python。
+
+ZIP文件组件，导入时会自动解压缩。
+
+内存内映像，对于frozen可执行文件。
+
+java类，在jython版本的Python中。
+
+.NET组件，在IronPython版本的Python中。
+
+```
+
+
+
+b、编译（可选）
+遍历模块搜索路径，找到符合import语句的源代码文件后，如果有必要的话，Python接下来会将其编译成字节码。
+Python会检查文件的时间戳，如果发现字节码文件比源代码文件旧（例如，如果你修改过源文件），就会在程序运行时自动重新生成字节代码。否则，就会跳过源代码到字节码的编译步骤。
+
+c、运行
+import操作的最后步骤是执行模块的字节码。文件中所有语句会依次执行，从头到尾，而此步骤中任何对变量名的赋值运算，都会产生所得到的模块文件的属性。因此，这个执行步骤会生成模块代码所定义的所有工具。例如，文件中的def语句会在导入时执行，来创建函数，并将模块内的属性赋值给那些函数。之后，函数就能被程序中这个文件的导入者来调用。
+
+在默认情况下，只是在每次会话的第一次运行。在第一次导入之后，其他的导入都不会再工作，甚至在另一个窗口中改变并保存了模块的源代码文件也不行。
+
+
+
+## Python中的包
+
+包是一个分层次的文件目录结构，它定义了一个由模块及子包，和子包下的子包等组成的 Python 的应用环境。
+
+简单来说，包就是文件夹，但该文件夹下必须存在 __init__.py 文件, 该文件的内容可以为空。__init__.py用于标识当前文件夹是一个包。
+
+考虑一个在 MYMethod 目录下的 Base.py、Extern.py、Other.py、__init__ 文件，test.py 为测试调用包的代码，目录结构如下：
+
+```
+test.py
+package_runoob
+|-- __init__.py
+|-- Base.py
+|-- Extern.py
+|-- Other.py
+```
+
+源代码如下：
+
+### package_runoob/Base.py
+
+```
+def Add(a,b):
+    return a+b
+
+def Minus(a,b):
+    return a-b
+
+def Multiply(a,b):
+    return a*b;
+
+def Division(a,b):
+    if b==0:
+        return 'division by zero';
+    else:
+        return a/b;
+```
+
+## package_runoob/Extern.py
+
+```
+def Square(a):
+    return a*a
+
+def Cube(a):
+    return a*a*a
+
+def ShowAuthor():
+  return "nankenan"
+```
+
+## package_runoob/Other.py
+
+```
+class other_method:
+  def __init__(self):
+      self.author = 'nankenan'
+
+  def felix_liang(self):
+      print("Felix Liang is sb")
+
+  def daisy_huang(self):
+      print("Daisy Huang is brautifull")
+```
+
+现在，在 **MYMethod** 目录下创建 **__init__.py**：
+
+## MYMethod/__init__.py
+
+```
+__author__ = 'nankenan'
+__all__ = ["Add", "Minus", "Multiply", "Division"]
+
+if __name__ == '__main__':
+    print('作为主程序运行')
+else:
+    print('package_mymhtod 初始化')
+```
+
+然后我们在 **MYMethod** 同级目录下创建 test.py 来调用 **MYMethod** 包
+
+## test.py
+
+```
+from MYMethod import Base
+from MYMethod import Extern
+from MYMethod import Other
+
+print(Base.Add(5,6))
+print(Extern.ShowAuthor())
+print(Extern.Cube(4))
+a = Other.other_method();
+a.felix_liang();
+
+```
+
+以上实例输出结果：
+
+```
+package_mymhtod 初始化
+11
+nankenan
+64
+Felix Liang is sb
+```
+
+如上
+

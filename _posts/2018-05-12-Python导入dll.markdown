@@ -1,11 +1,13 @@
+---
 layout:     post
-title:      "Python导入dll"
+title:      "Python模块和包的相关知识"
 subtitle:   "初学Python"
-date:       2018-05-02 14:16:00
+date:       2018-04-18 16:44:00
 author:     "Nankenan"
 header-img: "img/home-bg.jpg"
 tags:
     - Python
+---
 
 #Python导入dll
 

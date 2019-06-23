@@ -1,0 +1,15 @@
+---
+layout:     post
+title:      "诗忆 App 技术支持"
+subtitle:   "诗词记忆"
+date:       2019-06-24 23:00:00
+author:     "sword.zhang"
+header-img: "img/home-bg.jpg"
+tags:
+    - 技术支持
+---
+
+
+诗忆APP的技术支持或者任何事宜，请联系作者nankenan
+Email: zhanjif@126.com
+Tel:   (+86)13728667149

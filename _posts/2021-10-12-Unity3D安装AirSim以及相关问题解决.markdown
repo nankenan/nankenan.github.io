@@ -13,11 +13,11 @@ tags:
 
 ### 1、安装Unity3D，我安装的是2021.1.15f。
 
-![image-20211012143011679](img/AirsimSetup/image-20211012143011679.png)
+![image-20211012143011679](https://nankenan.github.io/img/AirsimSetup//image-20211012143011679.png)
 
 ### 2、安装Visual Studio，我安装的是2019版。记住要勾选 C++。
 
-![image-20211012142956783](img/AirsimSetup/image-20211012142956783.png)
+![image-20211012142956783](https://nankenan.github.io/img/AirsimSetup//image-20211012142956783.png)
 
 
 
@@ -39,21 +39,21 @@ tags:
 
 进入Eigen官网:http://eigen.tuxfamily.org/index.php?title=Main_Page#Download
 
-![image-20211012144043142](img/AirsimSetup/image-20211012144043142.png)
+![image-20211012144043142](https://nankenan.github.io/img/AirsimSetup//image-20211012144043142.png)
 
 我选择了最新的Eigen 3.4.0 released 版本，下载并且解压。
 
 打开 AirSim -> AirLib文件夹，新建一个名为 deps 的文件夹。
 
-![image-20211012144304262](img/AirsimSetup/image-20211012144304262.png)
+![image-20211012144304262](https://nankenan.github.io/img/AirsimSetup//image-20211012144304262.png)
 
 打开deps文件夹，将解压完的Eigen 文件夹拷贝到 deps 文件夹下，并且重命名为：eigen3
 
-![image-20211012144417148](img/AirsimSetup/image-20211012144417148.png)
+![image-20211012144417148](https://nankenan.github.io/img/AirsimSetup//image-20211012144417148.png)
 
 
 
-当然，也可以不重名，更改此处的附加包含目录 也可以。![image-20211013103909432](img/AirsimSetup/image-20211013103909432.png)
+当然，也可以不重名，更改此处的附加包含目录 也可以。![image-20211013103909432](https://nankenan.github.io/img/AirsimSetup//image-20211013103909432.png)
 
 **RPClib**的安装：
 
@@ -61,7 +61,7 @@ GitHub仓库地址为：https://github.com/rpclib/rpclib
 
 克隆下来，并且rpclib文件夹拷贝到上面的deps文件夹中。
 
-![image-20211012145441344](img/AirsimSetup/image-20211012145441344.png)
+![image-20211012145441344](https://nankenan.github.io/img/AirsimSetup//image-20211012145441344.png)
 
 
 
@@ -69,7 +69,7 @@ GitHub仓库地址为：https://github.com/rpclib/rpclib
 
 但是这个工程没有sln解决方案文件，我们需要通过cmake生成，去cmake官网https://cmake.org/download/ 下载一个最新的cmake，
 
-![image-20211013103002809](img/AirsimSetup/image-20211013103002809.png)
+![image-20211013103002809](https://nankenan.github.io/img/AirsimSetup//image-20211013103002809.png)
 
  安装后打开即可。
 
@@ -77,19 +77,19 @@ GitHub仓库地址为：https://github.com/rpclib/rpclib
 
 
 
-![image-20211013103234013](img/AirsimSetup/image-20211013103234013.png)
+![image-20211013103234013](https://nankenan.github.io/img/AirsimSetup//image-20211013103234013.png)
 
 然后依次点击config、Generate、Open Project。
 
 
 
-![image-20211013103331464](img/AirsimSetup/image-20211013103331464.png)
+![image-20211013103331464](https://nankenan.github.io/img/AirsimSetup//image-20211013103331464.png)
 
 此时打开了一个RPC的工程，不要犹豫，右键ALL_BUILD，点击重新生成，就会得到**rpc.lib** 了。
 
 
 
-![image-20211013103538415](img/AirsimSetup/image-20211013103538415.png)
+![image-20211013103538415](https://nankenan.github.io/img/AirsimSetup//image-20211013103538415.png)
 
 由于AirSimWrapper 工程下依赖的rpc.lib 路径为：deps\rpclib\lib\$(Platform)\$(Configuration)，我们使用的是x64 下的 Release ， 即deps\rpclib\lib\x64\Release。
 
@@ -103,13 +103,13 @@ GitHub仓库地址为：https://github.com/rpclib/rpclib
 
 
 
-![image-20211013104549554](img/AirsimSetup/image-20211013104549554.png)
+![image-20211013104549554](https://nankenan.github.io/img/AirsimSetup//image-20211013104549554.png)
 
 成功的话，会在Unity3D的目录下生成 一个AirsimWrapper.dll。
 
 
 
-![image-20211013104705837](img/AirsimSetup/image-20211013104705837.png)
+![image-20211013104705837](https://nankenan.github.io/img/AirsimSetup//image-20211013104705837.png)
 
 如果没有该dll,建议 AirsimWrapper 工程下 重新生成 ，看报啥错，再逐步解决就好。
 
@@ -119,17 +119,17 @@ GitHub仓库地址为：https://github.com/rpclib/rpclib
 
 打开场景文件夹，选择 SimModeSelector ，运行。
 
-![image-20211013105713323](img/AirsimSetup/image-20211013105713323.png)
+![image-20211013105713323](https://nankenan.github.io/img/AirsimSetup//image-20211013105713323.png)
 
 这时我们可以选择 Car 或者 Drone Mode.
 
-![image-20211013105920427](img/AirsimSetup/image-20211013105920427.png)
+![image-20211013105920427](https://nankenan.github.io/img/AirsimSetup//image-20211013105920427.png)
 
 
 
 打开Car 是酱紫的。
 
-![image-20211013110003807](img/AirsimSetup/image-20211013110003807.png)
+![image-20211013110003807](https://nankenan.github.io/img/AirsimSetup//image-20211013110003807.png)
 
 
 
